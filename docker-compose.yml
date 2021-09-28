@@ -1,0 +1,71 @@
+version: "3.8"
+services:
+  node-api:
+    image: node-api:onboarding
+    build:
+      context: .
+      target: dev
+    container_name: node-api-onboarding
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 5000:5000
+    environment:
+      - NODE_ENV=$NODE_ENV
+      - MIGRATION_ENABLED=$MIGRATION_ENABLED
+      - RETRY_INTERVAL=$RETRY_INTERVAL
+      - RETRY_ATTEMPTS=$RETRY_ATTEMPTS
+      - POW_SRV_HOST=$POW_SRV_HOST
+      - POW_SRV_PORT=$POW_SRV_PORT
+      - POW_SRV_SHUTDOWN_TIMEOUT=$POW_SRV_SHUTDOWN_TIMEOUT
+      - POW_SRV_TESTMODE=$POW_SRV_TESTMODE
+      - POW_JWT_SECRET=$POW_JWT_SECRET
+      - POW_JWT_EXPIRY_MINS=$POW_JWT_EXPIRY_MINS
+      - POW_JWT_EXPIRY_DAYS=$POW_JWT_EXPIRY_DAYS
+      - POW_DB_CLIENT=$POW_DB_CLIENT
+      - POW_DB_HOST=$POW_DB_HOST
+      - POW_DB_USER=$POW_DB_USER
+      - POW_DB_PASSWORD=$POW_DB_PASSWORD
+      - POW_DB_NAME=$POW_DB_NAME
+      - POW_DB_POOL_MIN=$POW_DB_POOL_MIN
+      - POW_DB_POOL_MAX=$POW_DB_POOL_MAX
+      - POW_DB_DEBUG=$POW_DB_DEBUG
+      - POW_LOG_LEVEL=$POW_LOG_LEVEL
+      - POW_LOG_ROTATION_ENABLED=$POW_LOG_ROTATION_ENABLED
+      - POW_LOG_TRANSPORT_FILE=$POW_LOG_TRANSPORT_FILE
+      - POW_LOG_TRANSPORT_STDOUT=$POW_LOG_TRANSPORT_STDOUT
+    volumes:
+      - pow-node-onboarding:/pow-node-onboarding
+    tty: true
+    networks:
+      - powbackend-onboarding
+    command: ["node", "index.js"]
+  db:
+    image: "postgres:13-alpine"
+    container_name: "db"
+    ports:
+      - 5432:5432
+    networks:
+      - powbackend-onboarding
+    environment:
+      - POSTGRES_DB=$POW_DB_NAME
+      - POSTGRES_USER=$POW_DB_USER #$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POW_DB_PASSWORD #$POSTGRES_PASSWORD
+    volumes:
+      - postgres-data-onboarding:/usr/local/var/postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POW_DB_USER -d $POW_DB_NAME"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+networks:
+  powbackend-onboarding:
+    name: powbackend-onboarding
+    driver: bridge
+volumes:
+  postgres-data-onboarding:
+    driver: local
+  pow-node-onboarding:
+    driver: local
