@@ -1,6 +1,6 @@
 ## GRACE ONBOARDING TASK
 
-Create a RESTful API endpoint that accepts a request and creates a generic promocode.
+Create a RESTful API endpoint that accepts a request and creates a generic promocode.  
 Create a RESTful API endpoint that accepts a request and retrieves the created generic promocode.
 
 ## Required Fields For Generic Create Request
