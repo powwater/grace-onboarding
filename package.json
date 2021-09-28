@@ -1,0 +1,37 @@
+{
+  "name": "grace-onboarding",
+  "version": "1.0.0",
+  "description": "Onboarding task for Grace",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "db:up": "npx knex --cwd database migrate:up",
+    "db:down": "npx knex --cwd database migrate:down",
+    "db:migrate": "npx knex --cwd database migrate:latest",
+    "db:help": "npx knex --help",
+    "db:seed": "npx knex --cwd database seed:run",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/powwater/grace-onboarding.git"
+  },
+  "author": "Grace",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/powwater/grace-onboarding/issues"
+  },
+  "homepage": "https://github.com/powwater/grace-onboarding#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-pino-logger": "^6.0.0",
+    "http-status": "^1.5.0",
+    "knex": "^0.95.11",
+    "moment": "^2.29.1",
+    "npmlog": "^5.0.1",
+    "pg": "^8.7.1",
+    "stoppable": "^1.1.0"
+  }
+}
