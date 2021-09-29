@@ -1,5 +1,6 @@
 const promoService = require("../utils/promocode");
 const query = require("../queries")
+const httpStatus = require("http-status");
 
  async function createGenericCode(req, res, next) {
 
