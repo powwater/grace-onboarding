@@ -7,7 +7,7 @@ services:
       target: dev
     container_name: node-api-onboarding
     depends_on:
-      db:
+      postgres:
         condition: service_healthy
     ports:
       - 5000:5000
@@ -41,9 +41,9 @@ services:
     networks:
       - powbackend-onboarding
     command: ["node", "index.js"]
-  db:
+  postgres:
     image: "postgres:13-alpine"
-    container_name: "db"
+    container_name: "postgres"
     ports:
       - 5432:5432
     networks:

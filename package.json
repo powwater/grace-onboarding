@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "docker-compose --env-file .env.dev up --build --remove-orphans",
     "db:up": "npx knex --cwd database migrate:up",
     "db:down": "npx knex --cwd database migrate:down",
     "db:migrate": "npx knex --cwd database migrate:latest",
@@ -30,8 +31,10 @@
     "http-status": "^1.5.0",
     "knex": "^0.95.11",
     "moment": "^2.29.1",
+    "nanoid": "^3.1.28",
     "npmlog": "^5.0.1",
     "pg": "^8.7.1",
-    "stoppable": "^1.1.0"
+    "stoppable": "^1.1.0",
+    "uuid": "^8.3.2"
   }
 }

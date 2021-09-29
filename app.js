@@ -1,5 +1,6 @@
 const express = require("express");
 const ApiError = require("./errors");
+const routes = require("./routes");
 
 const cors = require("cors");
 const httpStatus = require("http-status");
@@ -54,6 +55,11 @@ app.use(
     allowHeaders: ["Authorization", "Content-Type", "App"],
     keepHeadersOnError: true,
   })
+);
+
+app.use(
+  "/promo/",
+  routes.promoRouter
 );
 
 //default error handler
